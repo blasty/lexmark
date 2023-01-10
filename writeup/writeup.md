@@ -151,8 +151,7 @@ Please refer to the exploit code for the full details of all steps involved.
 ## Exploit Output
 
 A typical run of the exploit should look like this. After exploitation is finished
-a rootshell is spawned and a little surprise payload is uploaded to take over
-the UI that is normally displayed on the printer's LCD screen.
+a rootshell is spawned.
 
 ```
 $ python exploit.py 192.168.2.18 192.168.2.14
