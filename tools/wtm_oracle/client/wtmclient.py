@@ -47,6 +47,9 @@ REG_CMD_RETURN_STATUS = 0x80
 AES_REG_KEY = 0x78
 AES_REG_IV = 0x98
 
+# TODO: this is hardcoded for my printer running CXLBL.230.037 right now.
+# should add some code to dynamically derive this. that should probably be
+# done in wtm_hax_oracle itself for performance reasons. 
 WTM_TEXT_BASE = 0x6380000
 
 WTM_TEXT_HEAD = bytes.fromhex(
