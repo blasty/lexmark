@@ -52,7 +52,10 @@ def cpio_get_file(blob, path):
 
 def wtm_oracle_unwrap_key(api, wkey, rootfskey):
     s = socket.create_connection((api, 0x4444))
-    s.sendall(wkey + rootfskey[0x10:] + rootfskey[0:0x10])
+    RPC_COMMAND_UNWRAP_KEY = 1
+    body = wkey + rootfskey[0x10:] + rootfskey[0:0x10]
+    s.sendall(struct.pack("<LL", RPC_COMMAND_UNWRAP_KEY, len(body)) + body)
+
     r = s.recv(0x20)
     s.close()
     if r == b"":
@@ -89,16 +92,21 @@ if __name__ == "__main__":
     ramdisk_uncompressed = gzip.GzipFile(fileobj=ramdisk_stream).read()
 
     wkey_unwrapped = None
-    for i in range(1, 5):
+    # we'll only try wkey4 for now, I've not seen the other ones being used
+    for i in [4]:
         wkey_data = cpio_get_file(
             ramdisk_uncompressed, "usr/share/wtm-crypt/wkey%d.bin" % i
         )
 
         if wkey_data is None:
             break
-        wkey_unwrapped = wtm_oracle_unwrap_key(wtm_oracle_ip, wkey_data, rootfskey)
-        if wkey_unwrapped is not None:
-            break
+
+        try:
+            wkey_unwrapped = wtm_oracle_unwrap_key(wtm_oracle_ip, wkey_data, rootfskey)
+            if wkey_unwrapped is not None:
+                break
+        except:
+            pass
 
     if wkey_unwrapped is None:
         print("failed to unwrap any wkey")

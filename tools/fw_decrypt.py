@@ -20,6 +20,7 @@ CONTENT_ID_MAP = {
     2: "initramfs",
     3: "rootfs",
     4: "license",
+    15: "scannerfs",
 }
 
 
@@ -205,7 +206,6 @@ class LexmarkFirmwareUnpacker:
 
             pos += 8
 
-            print("POS: %08x TAG: %08X SIZE: %08X" % (pos, tag, size))
             data = d[pos : pos + size]
 
             if size > 0 and tag != TAG_DATA:
@@ -222,6 +222,7 @@ class LexmarkFirmwareUnpacker:
                 ofn = os.path.join(outputdir, "content_%s.bin" % content_name)
                 with open(ofn, "wb") as f:
                     f.write(data[8:])
+                print("> saved content '%s' to '%s'" % (content_name, ofn))
 
             n += 1
             pos += size

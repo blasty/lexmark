@@ -129,7 +129,7 @@ void cmd_unwrap_key(int client_fd, uint8_t *body, uint32_t data_len)
   if (wtm_unwrap_key(body, data_len, unwrapped) < 0)
   {
     DPRINTF("failed to unwrap key somehow...\n");
-    return;
+    memset(unwrapped, 0, sizeof(unwrapped));
   }
 
   if (send(client_fd, unwrapped, sizeof(unwrapped), 0) < 0)
