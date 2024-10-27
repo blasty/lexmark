@@ -10,4 +10,4 @@ you will need to run [`wtm_oracle`](./wtm_oracle/) on a (rooted) printer.
 
 If you want to learn more about this additional rootfs encryption or the Marvell WTM usage by Lexmark in general; check out these two blog posts I wrote:
 * [Retrofitting encrypted firmware is a Bad Idea™](https://haxx.in/posts/wtm-wtf/)
-* [Let's PWN WTM!](https://haxx.in/posts/2024-09-27-wtm-pwn/)
+* [Let's PWN WTM!](https://haxx.in/posts/wtm-pwn/)
